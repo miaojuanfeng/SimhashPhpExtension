@@ -87,12 +87,13 @@ static void php_simhash_init_globals(zend_simhash_globals *simhash_globals)
 PHP_METHOD(simhash, hamming)
 {
 	zend_ulong binary;
+	unsigned int tmp;
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &binary) == FAILURE) {
 		return;
 	}
 
-	unsigned int tmp = binary - ((binary >>1) &033333333333) - ((binary >>2) &011111111111);
+	tmp = binary - ((binary >>1) &033333333333) - ((binary >>2) &011111111111);
     RETURN_LONG( ((tmp + (tmp >>3)) &030707070707) %63 );
 }
 
@@ -116,15 +117,18 @@ PHP_METHOD(simhash, getBinary)
 	HashPosition pos;
 	zval **value;
 
+	float hash_vector[SIMHASH_BIT];
+	zend_ulong token_hash = 0;
+	zend_ulong simhash = 0;
+	int current_bit = 0;
+
+	int i;
+
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a", &arr) == FAILURE) {
 		return;
 	}
 
-	float hash_vector[SIMHASH_BIT];
-    memset(hash_vector, 0, SIMHASH_BIT * sizeof(float));
-	zend_ulong token_hash = 0;
-	zend_ulong simhash = 0;
-	int current_bit = 0;
+	memset(hash_vector, 0, SIMHASH_BIT * sizeof(float));
 
 	for(zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(arr), &pos);
 	    zend_hash_has_more_elements_ex(Z_ARRVAL_P(arr), &pos) == SUCCESS;
@@ -133,8 +137,8 @@ PHP_METHOD(simhash, getBinary)
 			continue;
 		}
 		if(Z_TYPE_PP(value) == IS_LONG){
-			token_hash = Z_LVAL_PP(value);
 			int j;
+			token_hash = Z_LVAL_PP(value);
 			for(j=SIMHASH_BIT-1; j>=0; j--) {
 	            current_bit = token_hash & 0x1;
 	            if(current_bit == 1) {
@@ -147,7 +151,6 @@ PHP_METHOD(simhash, getBinary)
 		}
 	}
 
-	int i;
 	for(i=0; i<SIMHASH_BIT; i++) {
         if(hash_vector[i] > 0) {
             simhash = (simhash << 1) + 0x1;
@@ -166,6 +169,9 @@ PHP_METHOD(simhash, hash)
 	zval **value;
 	zval *retval;
 
+	zend_ulong token_hash = 0;
+	zval *hash_item;
+
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a", &arr) == FAILURE) {
 		return;
 	}
@@ -173,8 +179,6 @@ PHP_METHOD(simhash, hash)
 	MAKE_STD_ZVAL(retval);
 	array_init(retval);
 
-	zend_ulong token_hash = 0;
-	zval *hash_item;
 	for(zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(arr), &pos);
 	    zend_hash_has_more_elements_ex(Z_ARRVAL_P(arr), &pos) == SUCCESS;
 	    zend_hash_move_forward_ex(Z_ARRVAL_P(arr), &pos)){
@@ -190,12 +194,72 @@ PHP_METHOD(simhash, hash)
 	}
 	RETURN_ZVAL(retval, 0, 1);
 }
+
+PHP_METHOD(simhash, sign)
+{
+	zval *arr;
+	HashPosition pos;
+	char *key;
+	uint key_len;
+	uint idx;
+	zval **value;
+	zval *retval;
+
+	float hash_vector[SIMHASH_BIT];
+	zend_ulong token_hash = 0;
+	zend_ulong simhash = 0;
+	int current_bit = 0;
+
+	int i;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a", &arr) == FAILURE) {
+		return;
+	}
+
+	MAKE_STD_ZVAL(retval);
+	array_init(retval);
+
+	for(zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(arr), &pos);
+	    zend_hash_has_more_elements_ex(Z_ARRVAL_P(arr), &pos) == SUCCESS;
+	    zend_hash_move_forward_ex(Z_ARRVAL_P(arr), &pos)){
+		if(zend_hash_get_current_key_ex(Z_ARRVAL_P(arr), &key, &key_len, &idx, 0, &pos) != HASH_KEY_IS_STRING){
+			php_error(E_ERROR, "Array key should be String");
+		}
+		if(zend_hash_get_current_data_ex(Z_ARRVAL_P(arr), (void**)&value, &pos) == FAILURE || Z_TYPE_PP(value) != IS_LONG ){
+			php_error(E_ERROR, "Array Value should be Long int");
+		}
+		if(Z_TYPE_PP(value) == IS_LONG){
+			int j;
+			token_hash = zend_hash_func(key, key_len);
+			for(j=SIMHASH_BIT-1; j>=0; j--) {
+	            current_bit = token_hash & 0x1;
+	            if(current_bit == 1) {
+	                hash_vector[j] += Z_LVAL_PP(value);
+	            } else {
+	                hash_vector[j] -= Z_LVAL_PP(value);
+	            }
+	            token_hash = token_hash >> 1;
+	        }
+		}
+	}
+
+	for(i=0; i<SIMHASH_BIT; i++) {
+        if(hash_vector[i] > 0) {
+            simhash = (simhash << 1) + 0x1;
+        } else {
+            simhash = simhash << 1;
+        }
+    }
+
+    RETURN_LONG(simhash);
+}
 /* }}} */
 zend_function_entry simhash_methods[] = {
 	PHP_ME(simhash, hash, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(simhash, getBinary, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(simhash, compare, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(simhash, hamming, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(simhash, sign, NULL, ZEND_ACC_PUBLIC)
 	PHP_FE_END
 };
 
