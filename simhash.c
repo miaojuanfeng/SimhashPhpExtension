@@ -219,6 +219,8 @@ PHP_METHOD(simhash, sign)
 	MAKE_STD_ZVAL(retval);
 	array_init(retval);
 
+	memset(hash_vector, 0, SIMHASH_BIT * sizeof(float));
+
 	for(zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(arr), &pos);
 	    zend_hash_has_more_elements_ex(Z_ARRVAL_P(arr), &pos) == SUCCESS;
 	    zend_hash_move_forward_ex(Z_ARRVAL_P(arr), &pos)){
