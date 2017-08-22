@@ -214,21 +214,25 @@ PHP_METHOD(simhash, sign)
 	for(zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(arr), &pos);
 	    zend_hash_has_more_elements_ex(Z_ARRVAL_P(arr), &pos) == SUCCESS;
 	    zend_hash_move_forward_ex(Z_ARRVAL_P(arr), &pos)){
-		if(zend_hash_get_current_key_ex(Z_ARRVAL_P(arr), &key, &key_len, &idx, 0, &pos) != HASH_KEY_IS_STRING){
+		if( zend_hash_get_current_key_ex(Z_ARRVAL_P(arr), &key, &key_len, &idx, 0, &pos) != HASH_KEY_IS_STRING ){
 			php_error(E_ERROR, "Array key should be String");
 		}
-		if(zend_hash_get_current_data_ex(Z_ARRVAL_P(arr), (void**)&value, &pos) == FAILURE || Z_TYPE_PP(value) != IS_LONG ){
-			php_error(E_ERROR, "Array Value should be Long int");
+		if(zend_hash_get_current_data_ex(Z_ARRVAL_P(arr), (void**)&value, &pos) == FAILURE || ( Z_TYPE_PP(value) != IS_LONG && Z_TYPE_PP(value) != IS_DOUBLE) ){
+			php_error(E_ERROR, "Array Value should be Number");
 		}
-		if(Z_TYPE_PP(value) == IS_LONG){
+		if( Z_TYPE_PP(value) == IS_LONG ){
+			convert_to_double(*value);
+		}
+		php_printf("%.11f\n", Z_DVAL_PP(value));
+		if(Z_TYPE_PP(value) == IS_DOUBLE){
 			int j;
 			token_hash = zend_hash_func(key, key_len);
 			for(j=SIMHASH_BIT-1; j>=0; j--) {
 	            current_bit = token_hash & 0x1;
 	            if(current_bit == 1) {
-	                hash_vector[j] += Z_LVAL_PP(value);
+	                hash_vector[j] += Z_DVAL_PP(value);
 	            } else {
-	                hash_vector[j] -= Z_LVAL_PP(value);
+	                hash_vector[j] -= Z_DVAL_PP(value);
 	            }
 	            token_hash = token_hash >> 1;
 	        }
