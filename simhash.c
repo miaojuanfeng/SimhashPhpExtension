@@ -191,7 +191,7 @@ PHP_METHOD(simhash, sign)
 	HashPosition pos;
 	char *key;
 	uint key_len;
-	uint idx;
+	zend_ulong idx;
 	zval **value;
 	zval *retval;
 
