@@ -193,7 +193,6 @@ PHP_METHOD(simhash, sign)
 	uint key_len;
 	zend_ulong idx;
 	zval **value;
-	zval *retval;
 
 	float hash_vector[SIMHASH_BIT];
 	zend_ulong token_hash = 0;
@@ -205,9 +204,6 @@ PHP_METHOD(simhash, sign)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a", &arr) == FAILURE) {
 		return;
 	}
-
-	MAKE_STD_ZVAL(retval);
-	array_init(retval);
 
 	memset(hash_vector, 0, SIMHASH_BIT * sizeof(float));
 
