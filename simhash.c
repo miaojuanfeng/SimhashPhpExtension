@@ -223,7 +223,6 @@ PHP_METHOD(simhash, sign)
 		if( Z_TYPE_PP(value) == IS_LONG ){
 			convert_to_double(*value);
 		}
-		php_printf("%.11f\n", Z_DVAL_PP(value));
 		if(Z_TYPE_PP(value) == IS_DOUBLE){
 			int j;
 			token_hash = zend_hash_func(key, key_len);
