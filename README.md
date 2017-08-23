@@ -8,7 +8,8 @@ see
 * [SimHash or the way to compare quickly two datasets](https://titouangalopin.com/2014/06/29/simhash)
 * [海量数据相似度计算之simhash和海明距离](http://www.lanceyan.com/tech/arch/simhash_hamming_distance_similarity.html)
 * [simhash与Google的网页去重](http://leoncom.org/?p=650607)
-<br/><br/>for more informations.
+
+for more informations.
 
 ### How to use it ?
 ```php
