@@ -7,7 +7,7 @@ This a algorithm, created by Moses Charikar, provides an efficient way to comput
 see
 * [http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)
 * [http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)
-* [http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)
+* [http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)   
 for more informations.
 
 Demo:
