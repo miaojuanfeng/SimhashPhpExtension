@@ -1,6 +1,15 @@
 # SimhashPhpExtension
 Simhash algorithm written in PHP extension. In order to compare the similarity between Texts.
 
+### What is SimHash ?
+This a algorithm, created by Moses Charikar, provides an efficient way to compute a similarity index between two texts. It is used by Google internally to detect dupplicate content.
+
+see
+* [http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)
+* [http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)
+* [http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)
+for more informations.
+
 Demo:
 ```php
 <?php
