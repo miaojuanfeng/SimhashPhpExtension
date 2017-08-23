@@ -8,7 +8,7 @@ see
 * [SimHash or the way to compare quickly two datasets](https://titouangalopin.com/2014/06/29/simhash)
 * [海量数据相似度计算之simhash和海明距离](http://www.lanceyan.com/tech/arch/simhash_hamming_distance_similarity.html)
 * [simhash与Google的网页去重](http://leoncom.org/?p=650607)
-<br/>for more informations.
+<br/><br/>for more informations.
 
 ### How to use it ?:
 ```php
@@ -52,6 +52,5 @@ see
 ?>
 ```
 
-### How to use it ?
-You can test it at:<br/>
-[http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)
+### How to test it ?
+You can test it at: [Simhash PHP Extension Demo](http://admin.mmdili.com/test/simhash)
