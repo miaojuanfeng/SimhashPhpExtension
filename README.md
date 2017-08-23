@@ -5,12 +5,12 @@ Simhash algorithm written in PHP extension. In order to compare the similarity b
 This a algorithm, created by Moses Charikar, provides an efficient way to compute a similarity index between two texts. It is used by Google internally to detect dupplicate content.
 
 see
-* [http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)
-* [http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)
-* [http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)   
-for more informations.
+* [SimHash or the way to compare quickly two datasets](https://titouangalopin.com/2014/06/29/simhash)
+* [海量数据相似度计算之simhash和海明距离](http://www.lanceyan.com/tech/arch/simhash_hamming_distance_similarity.html)
+* [simhash与Google的网页去重](http://leoncom.org/?p=650607)
+<br/>for more informations.
 
-Demo:
+### How to use it ?:
 ```php
 <?php
 	require 'pscws4/pscws4.class.php';
@@ -52,5 +52,6 @@ Demo:
 ?>
 ```
 
-Or you can test it at
+### How to use it ?
+You can test it at:<br/>
 [http://admin.mmdili.com/test/simhash](http://admin.mmdili.com/test/simhash)
