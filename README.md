@@ -10,7 +10,7 @@ see
 * [simhash与Google的网页去重](http://leoncom.org/?p=650607)
 <br/><br/>for more informations.
 
-### How to use it ?:
+### How to use it ?
 ```php
 <?php
 	require 'pscws4/pscws4.class.php';
