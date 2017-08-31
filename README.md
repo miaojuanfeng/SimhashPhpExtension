@@ -103,4 +103,4 @@ Class Simhash{
 ```
 
 ### How to test it ?
-You can test it at: [Simhash PHP Extension Demo](http://admin.mmdili.com/test/simhash)
+You can test it at [Simhash PHP Extension Demo](http://admin.mmdili.com/test/simhash)
