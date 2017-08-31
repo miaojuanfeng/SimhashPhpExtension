@@ -54,4 +54,67 @@ for more informations.
 ```
 
 ### How to test it ?
+
+### Class declare
+
+```php
+Clash Simhash{
+	/**
+	* Hash a Text Keyword to a long number
+	*
+	* @param 	 array   $keyword
+	*
+	* @return    array   Array with every hashed item
+	*
+	* public function hash($keyword)
+	*/
+	public function hash(){
+	}
+	/**
+	* Generate a fingerprint according to Hash array
+	*
+	* @param 	 array   $hash_array
+	*
+	* @return  	 long
+	*
+	* public function binary($hash_array)
+	*/
+	public function binary(){
+	}
+	/**
+	* Compare the difference between Two hash value
+	*
+	* @param 	 long   $hash1
+	* @param 	 long   $hash2
+	*
+	* @return  	 long   $hash1 ^ $hash2 that means fingerprint
+	*
+	* public function compare($hash1, $hash2)
+	*/
+	public function compare(){
+	}
+	/**
+	* Get the number of bit which is 1
+	*
+	* @param 	 long   $fingerprint
+	*
+	* @return  	 int   
+	*
+	* public function hamming($fingerprint)
+	*/
+	public function hamming(){
+	}
+	/**
+	* Hash a Text Keyword with Weigth to a long number
+	*
+	* @param 	 array   $keyword
+	*
+	* @return    long    $fingerprint
+	*
+	* public function sign($keyword)
+	*/
+	public function sign(){
+	}
+}
+```
 You can test it at: [Simhash PHP Extension Demo](http://admin.mmdili.com/test/simhash)
