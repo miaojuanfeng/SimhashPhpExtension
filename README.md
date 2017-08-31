@@ -53,8 +53,6 @@ for more informations.
 ?>
 ```
 
-### How to test it ?
-
 ### Class declare
 
 ```php
@@ -65,22 +63,16 @@ Clash Simhash{
 	* @param 	 array   $keyword
 	*
 	* @return    array   Array with every hashed item
-	*
-	* public function hash($keyword)
 	*/
-	public function hash(){
-	}
+	public function hash($keyword){}
 	/**
 	* Generate a fingerprint according to Hash array
 	*
 	* @param 	 array   $hash_array
 	*
 	* @return  	 long
-	*
-	* public function binary($hash_array)
 	*/
-	public function binary(){
-	}
+	public function binary($hash_array){}
 	/**
 	* Compare the difference between Two hash value
 	*
@@ -88,33 +80,26 @@ Clash Simhash{
 	* @param 	 long   $hash2
 	*
 	* @return  	 long   $hash1 ^ $hash2 that means fingerprint
-	*
-	* public function compare($hash1, $hash2)
 	*/
-	public function compare(){
-	}
+	public function compare($hash1, $hash2){}
 	/**
 	* Get the number of bit which is 1
 	*
 	* @param 	 long   $fingerprint
 	*
 	* @return  	 int   
-	*
-	* public function hamming($fingerprint)
 	*/
-	public function hamming(){
-	}
+	public function hamming($fingerprint){}
 	/**
 	* Hash a Text Keyword with Weigth to a long number
 	*
 	* @param 	 array   $keyword
 	*
 	* @return    long    $fingerprint
-	*
-	* public function sign($keyword)
 	*/
-	public function sign(){
-	}
+	public function sign($keyword){}
 }
 ```
+
+### How to test it ?
 You can test it at: [Simhash PHP Extension Demo](http://admin.mmdili.com/test/simhash)
