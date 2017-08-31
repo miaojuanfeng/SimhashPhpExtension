@@ -54,9 +54,10 @@ for more informations.
 ```
 
 ### Class declare
+This class is defined internally within the PHP.
 
 ```php
-Clash Simhash{
+Class Simhash{
 	/**
 	* Hash a Text Keyword to a long number
 	*
@@ -64,7 +65,7 @@ Clash Simhash{
 	*
 	* @return    array   Array with every hashed item
 	*/
-	public function hash($keyword){}
+	public function hash($keyword)
 	/**
 	* Generate a fingerprint according to Hash array
 	*
@@ -72,7 +73,7 @@ Clash Simhash{
 	*
 	* @return  	 long
 	*/
-	public function binary($hash_array){}
+	public function binary($hash_array)
 	/**
 	* Compare the difference between Two hash value
 	*
@@ -81,7 +82,7 @@ Clash Simhash{
 	*
 	* @return  	 long   $hash1 ^ $hash2 that means fingerprint
 	*/
-	public function compare($hash1, $hash2){}
+	public function compare($hash1, $hash2)
 	/**
 	* Get the number of bit which is 1
 	*
@@ -89,7 +90,7 @@ Clash Simhash{
 	*
 	* @return  	 int   
 	*/
-	public function hamming($fingerprint){}
+	public function hamming($fingerprint)
 	/**
 	* Hash a Text Keyword with Weigth to a long number
 	*
@@ -97,7 +98,7 @@ Clash Simhash{
 	*
 	* @return    long    $fingerprint
 	*/
-	public function sign($keyword){}
+	public function sign($keyword)
 }
 ```
 
